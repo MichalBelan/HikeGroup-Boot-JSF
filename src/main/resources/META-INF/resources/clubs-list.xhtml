@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title">Club List</ui:define>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="clubs-list.css"/>
+
+        <!-- HEADER -->
+        <header class="hiking-header">
+            <div class="container text-center">
+                <i class="fas fa-mountain me-3" style="font-size: 2.5rem; opacity: 0.9;"></i>
+                <h1 class="fw-bolder mb-3">Find Hiking Clubs</h1>
+                <p class="lead fw-normal mb-0">Groups of passionate hikers near you</p>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="container-hiking">
+            <div class="container px-5">
+
+                <!-- SEARCH BOX -->
+                <div class="search-container">
+                    <h:form>
+                        <div class="d-flex">
+                            <h:inputText value="#{clubBean.searchQuery}"
+                                         styleClass="form-control search-input me-3"
+                                         pt:placeholder="Search hiking clubs..." />
+
+                            <h:commandButton value="Search"
+                                             action="#{clubBean.search}"
+                                             styleClass="btn search-btn">
+                                <i class="fas fa-search me-2"></i>
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+
+                <!-- CLUBS GRID -->
+                <div class="clubs-grid">
+                    <ui:fragment rendered="#{not empty clubBean.clubs}">
+                        <div class="row gx-4 gy-5">
+
+                            <ui:repeat value="#{clubBean.clubs}" var="club">
+                                <div class="col-lg-6 col-xl-4">
+                                    <div class="hiking-card card h-100">
+
+                                        <img class="card-img-top" src="#{club.photoUrl}" alt="Club Photo"/>
+
+                                        <div class="card-body d-flex flex-column">
+
+                                            <div class="small text-muted mb-2">
+                                                <i class="fas fa-calendar-alt me-1"></i>
+                                                #{clubBean.formatDate(club.createdOn)}
+                                            </div>
+
+                                            <h3 class="club-title mb-3">
+                                                <h:link outcome="/clubs-detail.xhtml"
+                                                        styleClass="club-title stretched-link">
+                                                    <f:param name="clubId" value="#{club.id}"/>
+                                                    #{club.title}
+                                                </h:link>
+                                            </h3>
+
+                                            <p class="card-text text-muted mb-4 flex-grow-1">
+                                                #{clubBean.abbreviate(club.content,120)}
+                                            </p>
+
+                                            <div class="mt-auto">
+                                                <h:link outcome="/clubs-detail.xhtml"
+                                                        styleClass="btn btn-hiking btn-sm">
+                                                    <f:param name="clubId" value="#{club.id}"/>
+                                                    <i class="fas fa-eye me-1"></i>View
+                                                </h:link>
+
+                                                <ui:fragment rendered="#{club.createdBy.id == clubBean.user.id}">
+                                                    <h:link outcome="/clubs-edit.xhtml"
+                                                            styleClass="btn btn-hiking-secondary btn-sm">
+                                                        <f:param name="clubId" value="#{club.id}"/>
+                                                        <i class="fas fa-edit me-1"></i>Edit
+                                                    </h:link>
+                                                </ui:fragment>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </ui:repeat>
+
+                        </div>
+                    </ui:fragment>
+
+                    <!-- NO CLUBS -->
+                    <ui:fragment rendered="#{empty clubBean.clubs}">
+                        <div class="no-clubs">
+                            <i class="fas fa-mountain"></i>
+                            <h3 class="mb-3">No hiking clubs found</h3>
+                            <p class="text-muted">Be the first to create a hiking club in your area!</p>
+
+                            <h:link outcome="/clubs-create.xhtml" styleClass="btn btn-hiking mt-3">
+                                <i class="fas fa-plus me-2"></i>Create New Club
+                            </h:link>
+                        </div>
+                    </ui:fragment>
+                </div>
+
+                <!-- PAGINATION -->
+                <ui:fragment rendered="#{clubBean.totalPages > 1}">
+                    <nav aria-label="Pagination" class="mt-5">
+                        <hr class="my-4" style="border-color: #d0e7d0;"/>
+
+                        <h:form>
+                            <ul class="pagination justify-content-center">
+
+                                <!-- Previous (Newer - goes to first page) -->
+                                <li class="page-item #{clubBean.currentPage > 0 ? '' : 'disabled'}">
+                                    <ui:fragment rendered="#{clubBean.currentPage > 0}">
+                                        <h:commandLink action="#{clubBean.goToFirstPage}" styleClass="page-link">
+                                            Newer
+                                        </h:commandLink>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{clubBean.currentPage == 0}">
+                                        <span class="page-link">Newer</span>
+                                    </ui:fragment>
+                                </li>
+
+                                <!-- Page numbers -->
+                                <ui:repeat value="#{clubBean.pageNumbers}" var="page">
+                                    <li class="page-item #{page == clubBean.currentPage ? 'active' : ''}">
+                                        <ui:fragment rendered="#{page != clubBean.currentPage}">
+                                            <h:commandLink action="#{clubBean.goToPage(page)}" styleClass="page-link">
+                                                #{page + 1}
+                                            </h:commandLink>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{page == clubBean.currentPage}">
+                                            <span class="page-link">#{page + 1}</span>
+                                        </ui:fragment>
+                                    </li>
+                                </ui:repeat>
+
+                                <!-- Next (Older - goes to last page) -->
+                                <li class="page-item #{clubBean.currentPage lt (clubBean.totalPages - 1) ? '' : 'disabled'}">
+                                    <ui:fragment rendered="#{clubBean.currentPage lt (clubBean.totalPages - 1)}">
+                                        <h:commandLink action="#{clubBean.goToLastPage}" styleClass="page-link">
+                                            Older
+                                        </h:commandLink>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{clubBean.currentPage ge (clubBean.totalPages - 1)}">
+                                        <span class="page-link">Older</span>
+                                    </ui:fragment>
+                                </li>
+
+                            </ul>
+                        </h:form>
+
+                        <div class="text-center mt-3 text-muted pb-5">
+                            Showing page <strong>#{clubBean.currentPage + 1}</strong>
+                            of <strong>#{clubBean.totalPages}</strong>
+                            (#{clubBean.totalItems} total clubs)
+                        </div>
+
+                    </nav>
+                </ui:fragment>
+
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

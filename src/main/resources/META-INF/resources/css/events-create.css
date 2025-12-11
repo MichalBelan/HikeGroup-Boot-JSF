@@ -1,0 +1,111 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex: 1 0 auto;
+}
+footer {
+    position: static !important;
+    margin-top: auto;
+}
+.hiking-form {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #d4e6d4;
+}
+.form-control {
+    border: 2px solid #c3d9c3;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.form-control:focus {
+    border-color: #5a8a5a;
+    box-shadow: 0 0 0 0.2rem rgba(90, 138, 90, 0.25);
+}
+.btn-hiking {
+    background: linear-gradient(135deg, #5a8a5a 0%, #4a7a4a 100%);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(90, 138, 90, 0.3);
+}
+.btn-hiking:hover {
+    background: linear-gradient(135deg, #4a7a4a 0%, #3a6a3a 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(90, 138, 90, 0.4);
+}
+.hiking-title {
+    color: #2d5a2d;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.form-label {
+    color: #3a6a3a;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.hiking-icon {
+    color: #5a8a5a;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-top: 5px;
+}
+.container-hiking {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mountains" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><polygon points="0,100 20,60 40,80 60,40 80,70 100,30 100,100" fill="%23f8f9fa" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23mountains)"/></svg>') repeat;
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+
+/* Validation message styling */
+.validation-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    color: #721c24;
+    font-size: 0.875rem;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Input error state */
+.form-control.error {
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+/* Remove default JSF message styling */
+.ui-message-error,
+.ui-message-error-detail {
+    background: none !important;
+    border: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Datetime input specific styling */
+input[type="datetime-local"] {
+    color: #6c757d;
+}
+
+input[type="datetime-local"]::-webkit-datetime-edit-text {
+    color: #6c757d;
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="content">
+
+        <!-- Inline CSS -->
+        <style>
+            :root {
+                --forest-green: #1a4d3a;
+                --sage-green: #7ba59b;
+                --mountain-blue: #a8c5c1;
+                --earth-brown: #8b4513;
+                --light-sage: #e8f1ef;
+                --cream: #f5f3f0;
+                --error-red: #dc3545;
+            }
+
+            body {
+                background: linear-gradient(135deg, var(--mountain-blue) 0%, var(--light-sage) 100%);
+                min-height: 100vh;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .form-container {
+                max-width: 480px;
+                margin: 2rem auto;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                border-radius: 20px;
+                box-shadow: 0 8px 32px rgba(26, 77, 58, 0.15);
+                padding: 2.5rem;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            h2 {
+                font-weight: 700;
+                color: var(--forest-green);
+                margin-bottom: 0.5rem;
+                text-align: center;
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                text-align: center;
+                color: var(--sage-green);
+                margin-bottom: 2rem;
+                font-size: 1rem;
+            }
+
+            .form-label {
+                font-weight: 600;
+                color: var(--forest-green);
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+            }
+
+            .form-control {
+                border: 2px solid var(--mountain-blue);
+                border-radius: 12px;
+                padding: 0.875rem 1.25rem;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+                background-color: var(--cream);
+                width: 100%;
+            }
+
+            .form-control:focus {
+                border-color: var(--sage-green);
+                box-shadow: 0 0 0 0.2rem rgba(123, 165, 155, 0.25);
+                background-color: white;
+                outline: none;
+            }
+
+            .was-validated .form-control:invalid,
+            .form-control.is-invalid,
+            .has-validation .form-control:invalid {
+                border-color: var(--error-red) !important;
+                background-color: #fff5f5 !important;
+                box-shadow: none !important;
+            }
+
+            .ui-message-error,
+            .invalid-feedback,
+            .error-message {
+                color: var(--error-red) !important;
+                font-size: 0.875em;
+                font-weight: 500;
+                margin-top: 0.5rem;
+                display: block;
+                line-height: 1.2;
+            }
+
+            .btn-hiking {
+                background: linear-gradient(135deg, var(--forest-green) 0%, var(--sage-green) 100%);
+                border: none;
+                color: white;
+                padding: 0.875rem 1.5rem;
+                font-weight: 600;
+                border-radius: 12px;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 4px 15px rgba(26, 77, 58, 0.3);
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            .btn-hiking:hover {
+                background: linear-gradient(135deg, var(--sage-green) 0%, var(--forest-green) 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(26, 77, 58, 0.4);
+                color: white;
+            }
+
+            .mountain-icon {
+                color: var(--sage-green);
+                margin-right: 0.5rem;
+            }
+
+            .info-icon {
+                color: var(--sage-green);
+                margin-left: 0.5rem;
+                font-size: 1rem;
+            }
+
+            .text-center a {
+                color: #1a4d3a !important;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+            .text-center a:hover {
+                text-decoration: underline;
+                color: #7ba59b !important;
+            }
+
+            .alert-success {
+                background-color: var(--light-sage);
+                border-color: var(--sage-green);
+                color: var(--forest-green);
+                border-radius: 12px;
+            }
+
+            .alert-danger {
+                background-color: #fff5f5;
+                border-color: #fecaca;
+                color: #dc2626;
+                border-radius: 12px;
+            }
+
+            .hiking-decoration {
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: var(--sage-green);
+                font-size: 2.5rem;
+            }
+
+            @media (max-width: 576px) {
+                .form-container {
+                    margin: 1rem;
+                    padding: 2rem;
+                }
+            }
+        </style>
+
+        <div class="container-fluid">
+            <div class="form-container">
+
+                <div class="hiking-decoration">
+                    <i class="bi bi-mountains"></i>
+                </div>
+
+                <h2>Join the Adventure</h2>
+
+                <p class="subtitle">
+                    <i class="bi bi-compass"></i>
+                    Become part of the hiking community
+                </p>
+
+                <!-- SUCCESS -->
+                <h:panelGroup rendered="#{param.success ne null}">
+                    <div class="alert alert-success alert-dismissible fade show">
+                        <i class="bi bi-check-circle me-2"></i>
+                        Registration successful! You can now log in.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </h:panelGroup>
+
+                <!-- ERROR -->
+                <h:panelGroup rendered="#{param.error ne null}">
+                    <div class="alert alert-danger alert-dismissible fade show">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Registration failed. Please check your info.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                </h:panelGroup>
+
+                <!-- JSF FORM - OPRAVENÉ -->
+                <h:form id="registerForm">
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <h:outputLabel for="username" styleClass="form-label">
+                            <i class="bi bi-person mountain-icon"></i>
+                            Username
+                            <i class="bi bi-info-circle info-icon" title="Choose a unique username"></i>
+                        </h:outputLabel>
+
+                        <h:inputText value="#{authBean.user.username}"
+                                     id="username"
+                                     styleClass="form-control #{not empty facesContext.getMessageList('registerForm:username') ? 'is-invalid' : ''}"
+                                     pt:placeholder="Enter your username"
+                                     required="true"
+                                     requiredMessage="Username is required"
+                                     validatorMessage="Username must be 3-32 characters">
+                            <f:validateLength minimum="3" maximum="32"/>
+                        </h:inputText>
+
+                        <h:message for="username" styleClass="ui-message-error"/>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <h:outputLabel for="email" styleClass="form-label">
+                            <i class="bi bi-envelope mountain-icon"></i>
+                            Email Address
+                            <i class="bi bi-info-circle info-icon" title="We'll never share your email"></i>
+                        </h:outputLabel>
+
+                        <h:inputText value="#{authBean.user.email}"
+                                     id="email"
+                                     styleClass="form-control #{not empty facesContext.getMessageList('registerForm:email') ? 'is-invalid' : ''}"
+                                     pt:placeholder="Enter your email address"
+                                     required="true"
+                                     requiredMessage="Email is required"
+                                     validatorMessage="Enter a valid email">
+                            <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@(.+)$"/>
+                        </h:inputText>
+
+                        <h:message for="email" styleClass="ui-message-error"/>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-4">
+                        <h:outputLabel for="password" styleClass="form-label">
+                            <i class="bi bi-shield-lock mountain-icon"></i>
+                            Password
+                            <i class="bi bi-info-circle info-icon" title="Minimum 6 characters"></i>
+                        </h:outputLabel>
+
+                        <h:inputSecret value="#{authBean.user.password}"
+                                       id="password"
+                                       styleClass="form-control #{not empty facesContext.getMessageList('registerForm:password') ? 'is-invalid' : ''}"
+                                       pt:placeholder="Create a secure password"
+                                       required="true"
+                                       requiredMessage="Password is required"
+                                       validatorMessage="Password must be at least 6 characters">
+                            <f:validateLength minimum="6"/>
+                        </h:inputSecret>
+
+                        <h:message for="password" styleClass="ui-message-error"/>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <h:commandButton value="🎒 CREATE ACCOUNT"
+                                     action="#{authBean.register}"
+                                     styleClass="btn btn-hiking w-100 mb-3"/>
+
+                    <!-- Login link -->
+                    <p class="text-center">
+                        Already have an account? →
+                        <a href="login.xhtml">Sign in here</a>
+                    </p>
+
+                </h:form>
+
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title">Edit Hiking Club</ui:define>
+
+    <ui:define name="content">
+
+        <!-- Custom CSS -->
+        <h:outputStylesheet library="css" name="clubs-edit.css"/>
+
+        <section class="py-5 container-hiking">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
+
+                        <div class="hiking-form p-5">
+
+                            <!-- Header -->
+                            <div class="text-center mb-4">
+                                <i class="fas fa-edit hiking-icon"></i>
+                                <h2 class="hiking-title mb-0">Edit Hiking Club</h2>
+                                <p class="text-muted mt-2">Update your adventure community</p>
+                            </div>
+
+                            <!-- FORM -->
+                            <h:form>
+
+                                <!-- ID -->
+                                <h:inputHidden value="#{clubBean.clubDto.id}"/>
+
+                                <div class="row">
+                                    <!-- TITLE -->
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">
+                                            <i class="fas fa-flag-checkered me-2"></i>
+                                            Title
+                                        </label>
+
+                                        <h:inputText id="titleInput"
+                                                     value="#{clubBean.clubDto.title}"
+                                                     styleClass="form-control form-control-lg"
+                                                     required="true"
+                                                     requiredMessage="Title is required"/>
+
+                                        <h:message for="titleInput"
+                                                   styleClass="error-message text-danger mt-2"/>
+                                    </div>
+
+                                    <!-- PHOTO URL -->
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">
+                                            <i class="fas fa-camera me-2"></i>
+                                            Photo URL
+                                        </label>
+
+                                        <h:inputText id="photoInput"
+                                                     value="#{clubBean.clubDto.photoUrl}"
+                                                     styleClass="form-control form-control-lg"
+                                                     required="true"
+                                                     requiredMessage="Photo URL is required"/>
+
+                                        <h:message for="photoInput"
+                                                   styleClass="error-message text-danger mt-2"/>
+                                    </div>
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="mb-4">
+                                    <label class="form-label">
+                                        <i class="fas fa-align-left me-2"></i>
+                                        Content
+                                    </label>
+
+                                    <h:inputTextarea id="contentInput"
+                                                     value="#{clubBean.clubDto.content}"
+                                                     styleClass="form-control form-control-lg"
+                                                     rows="4"
+                                                     required="true"
+                                                     requiredMessage="Content is required"/>
+
+                                    <h:message for="contentInput"
+                                               styleClass="error-message text-danger mt-2"/>
+                                </div>
+
+                                <!-- BUTTONS -->
+                                <div class="text-center mt-5">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+
+                                        <!-- SUBMIT -->
+                                        <h:commandButton value="Update Club"
+                                                         action="#{clubBean.updateClub}"
+                                                         styleClass="btn btn-hiking btn-lg text-white">
+                                            <i class="fas fa-save me-2"></i>
+                                        </h:commandButton>
+
+                                        <!-- CANCEL -->
+                                        <h:link outcome="/clubs-detail.xhtml"
+                                                styleClass="btn btn-cancel btn-lg text-white">
+                                            <f:param name="clubId" value="#{clubBean.clubDto.id}"/>
+                                            <i class="fas fa-times me-2"></i>
+                                            Cancel
+                                        </h:link>
+
+                                    </div>
+                                </div>
+
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </ui:define>
+
+</ui:composition>
+</html>

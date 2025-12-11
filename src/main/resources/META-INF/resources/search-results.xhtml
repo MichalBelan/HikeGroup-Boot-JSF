@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title">Search Results</ui:define>
+
+    <ui:define name="content">
+
+        <!-- Custom CSS -->
+        <h:outputStylesheet library="css" name="search-results.css"/>
+
+        <!-- Header -->
+        <header class="hiking-header">
+            <div class="container text-center">
+                <i class="fas fa-search me-3" style="font-size: 2.5rem; opacity: 0.9;"></i>
+                <h1 class="fw-bolder mb-3">Trail Discovery Results</h1>
+                <p class="lead fw-normal mb-0">
+                    Search results for:
+                    <span class="search-query-highlight">
+                      #{clubBean.searchQuery}
+                    </span>
+                </p>
+            </div>
+        </header>
+
+        <div class="container-hiking">
+            <div class="container px-5">
+
+                <!-- Search bar -->
+                <div class="search-container">
+                    <h:form>
+                        <div class="d-flex">
+                            <h:inputText value="#{clubBean.searchQuery}"
+                                         styleClass="form-control search-input me-3"
+                                         pt:placeholder="Search hiking clubs and events..."
+                                         id="searchResultsInput"/>
+                            <h:commandButton value="Search"
+                                             action="#{clubBean.performSearch}"
+                                             styleClass="btn search-btn"
+                                             immediate="false">
+                                <i class="fas fa-search me-2"></i>
+                            </h:commandButton>
+                        </div>
+                    </h:form>
+
+                </div>
+
+                <div class="results-grid">
+                    <div class="row">
+
+                        <!-- Clubs -->
+                        <div class="col-lg-6 mb-4">
+                            <h3 class="hiking-section-title">
+                                <i class="fas fa-users me-2"></i>Hiking Clubs
+                            </h3>
+
+                            <ui:fragment rendered="#{not empty clubBean.clubs}">
+                                <ui:repeat value="#{clubBean.clubs}" var="club">
+                                    <div class="col-12 mb-4">
+                                        <div class="hiking-card card">
+                                            <div class="card-body">
+
+                                                <div class="small text-muted mb-2">
+                                                    <i class="fas fa-calendar-alt me-1"></i>
+                                                    #{clubBean.formatDate(club.createdOn)}
+                                                </div>
+
+                                                <h5 class="club-title mb-3">
+                                                    <h:link outcome="clubs-detail" styleClass="club-title">
+                                                        <f:param name="clubId" value="#{club.id}"/>
+                                                        #{club.title}
+                                                    </h:link>
+                                                </h5>
+
+                                                <p class="card-text text-muted mb-3">
+                                                    #{clubBean.abbreviate(club.content, 100)}
+                                                </p>
+
+                                                <h:link outcome="clubs-detail" styleClass="btn btn-hiking btn-sm">
+                                                    <f:param name="clubId" value="#{club.id}"/>
+                                                    <i class="fas fa-eye me-1"></i>View Club
+                                                </h:link>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{empty clubBean.clubs}">
+                                <div class="no-results">
+                                    <i class="fas fa-users"></i>
+                                    <h4>No hiking clubs found</h4>
+                                    <p class="text-muted">Try different search terms or explore all clubs!</p>
+                                </div>
+                            </ui:fragment>
+                        </div>
+
+                        <!-- Events -->
+                        <div class="col-lg-6 mb-4">
+                            <h3 class="hiking-section-title">
+                                <i class="fas fa-calendar-alt me-2"></i>Events
+                            </h3>
+
+                            <ui:fragment rendered="#{not empty clubBean.searchEvents}">
+                                <ui:repeat value="#{clubBean.searchEvents}" var="event">
+                                    <div class="col-12 mb-4">
+                                        <div class="hiking-card card">
+                                            <div class="card-body">
+
+                                                <div class="small text-muted mb-2">
+                                                    <i class="fas fa-calendar-plus me-1"></i>
+                                                    #{clubBean.formatDate(event.createdOn)}
+                                                </div>
+
+                                                <h5 class="event-title mb-3">
+                                                    <h:link outcome="events-detail" styleClass="event-title">
+                                                        <f:param name="eventId" value="#{event.id}"/>
+                                                        #{event.name}
+                                                    </h:link>
+                                                </h5>
+
+                                                <p class="card-text text-muted mb-2">
+                                                    <i class="fas fa-hiking me-1" style="color:#67a067;"></i>
+                                                    #{event.type}
+                                                </p>
+
+                                                <p class="card-text text-muted mb-3">
+                                                    <i class="fas fa-clock me-1" style="color:#67a067;"></i>
+                                                    #{clubBean.formatDateTime(event.startTime)}
+                                                </p>
+
+                                                <h:link outcome="events-detail" styleClass="btn btn-hiking btn-sm">
+                                                    <f:param name="eventId" value="#{event.id}"/>
+                                                    <i class="fas fa-eye me-1"></i>View Event
+                                                </h:link>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ui:repeat>
+                            </ui:fragment>
+
+                            <ui:fragment rendered="#{empty clubBean.searchEvents}">
+                                <div class="no-results">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <h4>No events found</h4>
+                                    <p class="text-muted">Try another search!</p>
+                                </div>
+                            </ui:fragment>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt-5 pb-5">
+                    <h:link outcome="home" styleClass="btn btn-hiking btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Trail Search
+                    </h:link>
+                </div>
+
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
+</html>

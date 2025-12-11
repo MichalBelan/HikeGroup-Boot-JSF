@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">Edit Event</ui:define>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="events-edit.css"/>
+
+        <div class="py-5 container-hiking">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
+                        <div class="hiking-form p-5">
+                            <div class="text-center mb-4">
+                                <h2 class="hiking-title mb-0">Edit Event</h2>
+                                <p class="text-muted mt-2">Update your hiking adventure</p>
+                            </div>
+
+                            <h:form>
+                                <h:inputHidden value="#{eventBean.event.id}"/>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:outputLabel for="name" styleClass="form-label">Name</h:outputLabel>
+                                            <h:inputText
+                                                    id="name"
+                                                    value="#{eventBean.event.name}"
+                                                    styleClass="form-control form-control-lg"
+                                                    placeholder="Event name"/>
+                                            <h:message for="name" styleClass="error-message text-danger mt-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:outputLabel for="type" styleClass="form-label">Type</h:outputLabel>
+                                            <h:inputText
+                                                    id="type"
+                                                    value="#{eventBean.event.type}"
+                                                    styleClass="form-control form-control-lg"
+                                                    placeholder="Event type"/>
+                                            <h:message for="type" styleClass="error-message text-danger mt-2"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="photoUrl" styleClass="form-label">PhotoUrl</h:outputLabel>
+                                    <h:inputText
+                                            id="photoUrl"
+                                            value="#{eventBean.event.photoUrl}"
+                                            styleClass="form-control form-control-lg"
+                                            placeholder="https://example.com/event-photo.jpg"/>
+                                    <h:message for="photoUrl" styleClass="error-message text-danger mt-2"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:outputLabel for="startTime" styleClass="form-label">Start Time</h:outputLabel>
+                                            <h:inputText
+                                                    id="startTime"
+                                                    value="#{eventBean.formattedStartTime}"
+                                                    styleClass="form-control form-control-lg"
+                                                    type="datetime-local"/>
+                                            <h:message for="startTime" styleClass="error-message text-danger mt-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <h:outputLabel for="endTime" styleClass="form-label">End Time</h:outputLabel>
+                                            <h:inputText
+                                                    id="endTime"
+                                                    value="#{eventBean.formattedEndTime}"
+                                                    styleClass="form-control form-control-lg"
+                                                    type="datetime-local"/>
+                                            <h:message for="endTime" styleClass="error-message text-danger mt-2"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <h:outputLabel for="elevationData" styleClass="form-label">Elevation Profile</h:outputLabel>
+                                    <h:inputTextarea
+                                            id="elevationData"
+                                            value="#{eventBean.event.elevationData}"
+                                            styleClass="form-control form-control-lg"
+                                            rows="3"
+                                            placeholder="100,150,280,420,380,350,200"/>
+                                    <small class="form-text text-muted">
+                                        Zadajte výšky oddelené čiarkami (napr: 100,150,280,420,380)
+                                    </small>
+                                </div>
+
+                                <div class="text-center mt-5">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <h:commandButton
+                                                action="#{eventBean.updateEvent}"
+                                                styleClass="btn btn-hiking btn-lg"
+                                                value="Update Event"/>
+                                        <h:link outcome="/events-detail.xhtml" styleClass="btn btn-cancel btn-lg">
+                                            <f:param name="eventId" value="#{eventBean.event.id}"/>
+                                            Cancel
+                                        </h:link>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

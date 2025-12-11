@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title">Create Club</ui:define>
+
+    <ui:define name="content">
+
+        <!-- Custom CSS -->
+        <h:outputStylesheet library="css" name="clubs-create.css"/>
+
+        <section class="py-5 container-hiking">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
+
+                        <div class="hiking-form p-5">
+
+                            <!-- Header -->
+                            <div class="text-center mb-4">
+                                <i class="fas fa-mountain hiking-icon"></i>
+                                <h2 class="hiking-title mb-0">Create New Hiking Club</h2>
+                                <p class="text-muted mt-2">Start your adventure community</p>
+                            </div>
+
+                            <!-- JSF FORM -->
+                            <h:form>
+
+                                <div class="row">
+
+                                    <!-- TITLE -->
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">
+                                            <i class="fas fa-flag-checkered me-2"></i>
+                                            Title
+                                        </label>
+
+                                        <h:inputText id="title"
+                                                     value="#{clubBean.clubDto.title}"
+                                                     required="true"
+                                                     requiredMessage="Title must not be empty"
+                                                     styleClass="form-control form-control-lg"
+                                                     title="Enter club title...">
+                                            <f:passThroughAttribute name="placeholder" value="Enter club title..." />
+                                        </h:inputText>
+
+                                        <h:message for="title" styleClass="validation-message"/>
+                                    </div>
+
+                                    <!-- PHOTO URL -->
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">
+                                            <i class="fas fa-camera me-2"></i>
+                                            Photo URL
+                                        </label>
+
+                                        <h:inputText id="photoUrl"
+                                                     value="#{clubBean.clubDto.photoUrl}"
+                                                     required="true"
+                                                     requiredMessage="Photo URL must not be empty"
+                                                     styleClass="form-control form-control-lg"
+                                                     title="https://example.com/photo.jpg">
+                                            <f:passThroughAttribute name="placeholder" value="https://example.com/photo.jpg" />
+                                        </h:inputText>
+
+                                        <h:message for="photoUrl" styleClass="validation-message"/>
+                                    </div>
+
+                                </div>
+
+                                <!-- CONTENT -->
+                                <div class="mb-4">
+                                    <label class="form-label">
+                                        <i class="fas fa-edit me-2"></i>
+                                        Content
+                                    </label>
+
+                                    <h:inputTextarea id="content"
+                                                     value="#{clubBean.clubDto.content}"
+                                                     rows="4"
+                                                     required="true"
+                                                     requiredMessage="Content must not be empty"
+                                                     styleClass="form-control form-control-lg"
+                                                     title="Describe your hiking club...">
+                                        <f:passThroughAttribute name="placeholder" value="Describe your hiking club..." />
+                                    </h:inputTextarea>
+
+                                    <h:message for="content" styleClass="validation-message"/>
+                                </div>
+
+                                <!-- SUBMIT BUTTON -->
+                                <div class="text-center mt-5">
+                                    <h:commandButton value="Create Hiking Club"
+                                                     action="#{clubBean.saveClub}"
+                                                     styleClass="btn btn-hiking btn-lg text-white">
+                                        <i class="fas fa-plus-circle me-2"></i>
+                                    </h:commandButton>
+                                </div>
+
+                            </h:form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="content">
+
+        <h:outputStylesheet library="css" name="clubs-detail.css"/>
+
+        <!-- HEADER -->
+        <header class="hiking-header">
+            <div class="container">
+                <div class="text-center">
+                    <i class="fas fa-mountain me-3" style="font-size: 2rem; opacity: 0.9;"></i>
+                    <h1 class="fw-bolder">
+                        #{clubBean.clubDto.title}
+                    </h1>
+                    <p class="lead mt-3">Discover amazing hiking adventures</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container container-hiking py-5">
+            <div class="row">
+
+                <!-- LEFT SIDE -->
+                <div class="col-lg-8">
+
+                    <!-- CLUB CARD -->
+                    <div class="hiking-card card mb-5">
+                        <img class="card-img-top"
+                             src="#{clubBean.clubDto.photoUrl}"
+                             alt="Club Photo"/>
+
+                        <div class="card-body about-section">
+
+                            <div class="small text-muted mb-3">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                #{clubBean.clubDto.createdOn}
+                            </div>
+
+                            <h2 class="card-title mb-4">
+                                <i class="fas fa-info-circle me-2 text-hiking"></i>
+                                About this hiking club
+                            </h2>
+
+                            <p class="card-text text-hiking">
+                                #{clubBean.clubDto.content}
+                            </p>
+
+                            <!-- Buttons (only owner) -->
+                            <h:panelGroup rendered="#{clubBean.user.id eq clubBean.clubDto.createdBy.id}">
+                                <div class="mt-4">
+                                    <button class="btn btn-danger-hiking me-3"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteClubModal">
+                                        <i class="fas fa-trash-alt me-2"></i>Delete
+                                    </button>
+
+                                    <h:link outcome="/events-create.xhtml" class="btn btn-hiking">
+                                        <f:param name="clubId" value="#{clubBean.clubDto.id}"/>
+                                        <i class="fas fa-plus me-2"></i>Create Event
+                                    </h:link>
+
+                                    <h:link outcome="/clubs-edit.xhtml" class="btn btn-hiking ms-2">
+                                        <f:param name="clubId" value="#{clubBean.clubDto.id}"/>
+                                        <i class="fas fa-edit me-2"></i>Edit
+                                    </h:link>
+                                </div>
+                            </h:panelGroup>
+
+                        </div>
+                    </div>
+
+                    <!-- EVENTS LIST -->
+                    <ui:fragment rendered="#{not empty clubBean.events}">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-hiking mb-4">
+                                    <i class="fas fa-calendar-check me-2"></i>
+                                    Upcoming Events
+                                </h3>
+                            </div>
+
+                            <ui:repeat value="#{clubBean.events}" var="event">
+                                <div class="col-lg-6">
+                                    <div class="event-card card mb-4">
+                                        <img class="card-img-top"
+                                             src="#{event.photoUrl}"
+                                             alt="Event Photo"/>
+
+                                        <div class="card-body">
+                                            <div class="small text-muted mb-2">
+                                                <i class="fas fa-calendar me-1"></i>
+                                                #{event.startTime}
+                                            </div>
+
+                                            <h4 class="card-title text-hiking">
+                                                #{event.name}
+                                            </h4>
+
+                                            <p class="card-text text-muted">
+                                                Join us for an amazing hiking adventure.
+                                            </p>
+
+                                            <h:link outcome="/events-detail.xhtml"
+                                                    styleClass="btn btn-hiking btn-sm">
+                                                <f:param name="eventId" value="#{event.id}"/>
+                                                <i class="fas fa-eye me-1"></i>View Details
+                                            </h:link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </ui:fragment>
+
+                    <!-- EVENTS PAGINATION -->
+                    <ui:fragment rendered="#{clubBean.hasEvents() and clubBean.totalEventPages > 1}">
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h:form>
+                                    <nav aria-label="Events pagination">
+                                        <ul class="pagination justify-content-center">
+
+                                            <!-- Previous button -->
+                                            <li class="page-item #{clubBean.hasPreviousEvent ? '' : 'disabled'}">
+                                                <h:commandLink class="page-link"
+                                                               action="#{clubBean.previousEventPage()}"
+                                                               rendered="#{clubBean.hasPreviousEvent}">
+                                                    <span aria-hidden="true">«</span>
+                                                </h:commandLink>
+                                                <h:panelGroup rendered="#{not clubBean.hasPreviousEvent}">
+                                                    <span class="page-link">
+                                                        <span aria-hidden="true">«</span>
+                                                    </span>
+                                                </h:panelGroup>
+                                            </li>
+
+                                            <!-- Page numbers -->
+                                            <ui:repeat value="#{clubBean.visibleEventPages}" var="pageNum">
+                                                <li class="page-item #{pageNum == clubBean.currentEventPage ? 'active' : ''}">
+                                                    <h:commandLink class="page-link"
+                                                                   action="#{clubBean.goToEventPage(pageNum)}"
+                                                                   rendered="#{pageNum != clubBean.currentEventPage}">
+                                                        #{pageNum + 1}
+                                                    </h:commandLink>
+                                                    <h:panelGroup rendered="#{pageNum == clubBean.currentEventPage}">
+                                                        <span class="page-link">
+                                                            #{pageNum + 1}
+                                                        </span>
+                                                    </h:panelGroup>
+                                                </li>
+                                            </ui:repeat>
+
+                                            <!-- Next button -->
+                                            <li class="page-item #{clubBean.hasNextEvent ? '' : 'disabled'}">
+                                                <h:commandLink class="page-link"
+                                                               action="#{clubBean.nextEventPage()}"
+                                                               rendered="#{clubBean.hasNextEvent}">
+                                                    <span aria-hidden="true">»</span>
+                                                </h:commandLink>
+                                                <h:panelGroup rendered="#{not clubBean.hasNextEvent}">
+                                                    <span class="page-link">
+                                                        <span aria-hidden="true">»</span>
+                                                    </span>
+                                                </h:panelGroup>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+                                    <!-- Page info -->
+                                    <div class="text-center mt-3">
+                                        <small class="text-muted">
+                                            Showing page #{clubBean.currentEventPage + 1} of #{clubBean.totalEventPages}
+                                            (#{clubBean.totalEventItems} total events)
+                                        </small>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </ui:fragment>
+
+                    <ui:fragment rendered="#{empty clubBean.events}">
+                        <div class="row">
+                            <div class="col-12 text-center py-5">
+                                <i class="fas fa-calendar-times text-muted" style="font-size: 3rem;"></i>
+                                <h4 class="text-muted mt-3">No upcoming events</h4>
+                                <p class="text-muted">This club hasn't scheduled any events yet.</p>
+                            </div>
+                        </div>
+                    </ui:fragment>
+
+                </div>
+
+                <!-- RIGHT SIDEBAR -->
+                <div class="col-lg-4">
+
+                    <!-- SEARCH -->
+                    <div class="sidebar-card card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-search me-2"></i>Search
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="Enter search term..."/>
+                                <button class="btn search-btn" type="button">
+                                    <i class="fas fa-search me-1"></i>Go!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CATEGORIES -->
+                    <div class="sidebar-card card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-tags me-2"></i>Categories
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li><a href="#">Hiking Trails</a></li>
+                                <li><a href="#">Mountain Climbing</a></li>
+                                <li><a href="#">Nature Photography</a></li>
+                                <li><a href="#">Camping</a></li>
+                                <li><a href="#">Outdoor Survival</a></li>
+                                <li><a href="#">Wildlife Watching</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- WIDGET -->
+                    <div class="sidebar-card card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-info-circle me-2"></i>Side Widget
+                        </div>
+                        <div class="card-body text-hiking">
+                            You can put anything inside these widgets.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- DELETE MODAL -->
+        <div class="modal fade" id="deleteClubModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Confirm Deletion
+                        </h5>
+                        <button type="button" class="btn-close"
+                                data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <h5 class="mb-3 text-hiking">
+                            Are you sure you want to delete this hiking club?
+                        </h5>
+
+                        <div class="club-info-box p-3 mb-3">
+                            <strong class="text-hiking">
+                                #{clubBean.clubDto.title}
+                            </strong>
+                        </div>
+
+                        <div class="warning-message">
+                            <p><i class="fas fa-info-circle me-1"></i>This action cannot be undone</p>
+                            <p><i class="fas fa-calendar-times me-1"></i>All associated events will also be deleted</p>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>Cancel
+                        </button>
+
+                        <h:form style="display: inline;">
+                            <h:commandButton value="Yes, delete"
+                                             action="#{clubBean.deleteClub(clubBean.clubDto.id)}"
+                                             styleClass="btn btn-danger-hiking"
+                                             onclick="$('#deleteClubModal').modal('hide');">
+                                <i class="fas fa-trash-alt me-2"></i>
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/layout.xhtml">
+
+    <ui:define name="title">Find Hiking Events</ui:define>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="events-list.css"/>
+
+        <header class="hiking-header">
+            <div class="container">
+                <div class="text-center">
+                    <h1 class="fw-bolder mb-3">Find Hiking Events</h1>
+                    <p class="lead fw-normal mb-0">Find hiking events near you</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container-hiking">
+            <div class="container px-5">
+                <div class="events-grid">
+                    <h:panelGroup rendered="#{eventBean.hasEvents()}">
+                        <div class="row gx-4 gy-5">
+                            <ui:repeat var="event" value="#{eventBean.events}">
+                                <div class="col-lg-6">
+                                    <div class="hiking-card card h-100">
+                                        <h:graphicImage styleClass="card-img-top" value="#{event.photoUrl}" alt="Event Photo"/>
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="small text-muted mb-2">
+                                                <h:outputText value="#{eventBean.formatDate(event.createdOn)}"/>
+                                            </div>
+                                            <h3 class="event-title mb-3">
+                                                <h:link outcome="/events-detail.xhtml" styleClass="event-title stretched-link">
+                                                    <f:param name="eventId" value="#{event.id}"/>
+                                                    <h:outputText value="#{event.name}"/>
+                                                </h:link>
+                                            </h3>
+
+                                            <div class="event-info mb-3">
+                                                <div class="event-info-item">
+                                                    <h:outputText value="#{eventBean.formatDateTime(event.startTime)}"/>
+                                                </div>
+                                                <div class="event-info-item">
+                                                    <h:outputText value="#{event.club.title}"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="event-type-badge mb-3">
+                                                <h:outputText value="#{event.type}"/>
+                                            </div>
+
+                                            <div class="mt-auto">
+                                                <h:link outcome="/events-detail.xhtml" styleClass="btn btn-hiking btn-sm">
+                                                    <f:param name="eventId" value="#{event.id}"/>
+                                                    View
+                                                </h:link>
+                                                <h:panelGroup rendered="#{eventBean.isOwner(event)}">
+                                                    <h:link outcome="/events-edit.xhtml" styleClass="btn btn-hiking-secondary btn-sm">
+                                                        <f:param name="eventId" value="#{event.id}"/>
+                                                        Edit
+                                                    </h:link>
+                                                </h:panelGroup>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{not eventBean.hasEvents()}">
+                        <div class="no-events">
+                            <h3 class="mb-3">No hiking events found</h3>
+                            <p class="text-muted">Be the first to create a hiking event!</p>
+                        </div>
+                    </h:panelGroup>
+                </div>
+
+                <h:panelGroup rendered="#{eventBean.totalPages gt 1}">
+                    <nav aria-label="Pagination" class="mt-5">
+                        <hr class="my-4" style="border-color: #d0e7d0;"/>
+                        <h:form>
+                            <ul class="pagination justify-content-center">
+
+                                <!-- Previous (Newer - goes to first page) -->
+                                <li class="page-item #{eventBean.currentPage > 0 ? '' : 'disabled'}">
+                                    <ui:fragment rendered="#{eventBean.currentPage > 0}">
+                                        <h:commandLink action="#{eventBean.goToFirstPage}" styleClass="page-link">
+                                            Newer
+                                        </h:commandLink>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{eventBean.currentPage == 0}">
+                                        <span class="page-link">Newer</span>
+                                    </ui:fragment>
+                                </li>
+
+                                <!-- Page numbers -->
+                                <ui:repeat value="#{eventBean.visiblePages}" var="page">
+                                    <li class="page-item #{page == eventBean.currentPage ? 'active' : ''}">
+                                        <ui:fragment rendered="#{page != eventBean.currentPage}">
+                                            <h:commandLink action="#{eventBean.goToPage(page)}" styleClass="page-link">
+                                                #{page + 1}
+                                            </h:commandLink>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{page == eventBean.currentPage}">
+                                            <span class="page-link">#{page + 1}</span>
+                                        </ui:fragment>
+                                    </li>
+                                </ui:repeat>
+
+                                <!-- Next (Older - goes to last page) -->
+                                <li class="page-item #{eventBean.currentPage lt (eventBean.totalPages - 1) ? '' : 'disabled'}">
+                                    <ui:fragment rendered="#{eventBean.currentPage lt (eventBean.totalPages - 1)}">
+                                        <h:commandLink action="#{eventBean.goToLastPage}" styleClass="page-link">
+                                            Older
+                                        </h:commandLink>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{eventBean.currentPage ge (eventBean.totalPages - 1)}">
+                                        <span class="page-link">Older</span>
+                                    </ui:fragment>
+                                </li>
+
+                            </ul>
+                        </h:form>
+
+                        <div class="text-center mt-3 text-muted pb-5">
+                            Showing page <strong>#{eventBean.currentPage + 1}</strong>
+                            of <strong>#{eventBean.totalPages}</strong>
+                            (#{eventBean.totalItems} total events)
+                        </div>
+
+                    </nav>
+                </h:panelGroup>
+
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>

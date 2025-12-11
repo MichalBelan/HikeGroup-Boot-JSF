@@ -1,0 +1,172 @@
+.hiking-header {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+.hiking-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mountains" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><polygon points="0,100 20,60 40,80 60,40 80,70 100,30 100,100" fill="%23ffffff" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23mountains)"/></svg>') repeat;
+}
+.hiking-header h1 {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-weight: 700;
+}
+.hiking-header p {
+    position: relative;
+    z-index: 2;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+.container-hiking {
+    background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+.hiking-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: white;
+    height: 100%;
+}
+.hiking-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(103, 160, 103, 0.2);
+}
+.hiking-card img {
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+    transition: transform 0.3s ease;
+}
+.hiking-card:hover img {
+    transform: scale(1.05);
+}
+.hiking-card .card-body {
+    padding: 25px;
+    border: 1px solid #e3f2e3;
+    border-top: none;
+    border-radius: 0 0 15px 15px;
+}
+.event-title {
+    color: #2d5a2d;
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: color 0.3s ease;
+}
+.event-title:hover {
+    color: #67a067;
+}
+.btn-hiking {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 20px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(103, 160, 103, 0.3);
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.btn-hiking:hover {
+    background: linear-gradient(135deg, #5a8a5a 0%, #4d7d4d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 160, 103, 0.4);
+    color: white;
+}
+.btn-hiking-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 20px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+.btn-hiking-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #494f54 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+    color: white;
+}
+.events-grid {
+    padding: 40px 0;
+}
+.no-events {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+.no-events i {
+    font-size: 4rem;
+    color: #67a067;
+    margin-bottom: 20px;
+}
+.event-info {
+    background: linear-gradient(135deg, #f8fdf8 0%, #edf7ed 100%);
+    border: 1px solid #d0e7d0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+.event-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.event-info-item:last-child {
+    margin-bottom: 0;
+}
+.event-info-icon {
+    color: #67a067;
+    width: 16px;
+    margin-right: 8px;
+}
+.event-type-badge {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+.pagination .page-link {
+    color: #67a067;
+    border: 1px solid #d0e7d0;
+    border-radius: 8px;
+    margin: 0 2px;
+    background: white;
+    font-weight: 500;
+}
+.pagination .page-item.active .page-link {
+    background-color: #67a067;
+    border-color: #67a067;
+    color: white;
+    font-weight: 600;
+}
+.pagination .page-link:hover {
+    color: #2d5a2d;
+    background-color: #f8fdf8;
+    border-color: #67a067;
+}
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}

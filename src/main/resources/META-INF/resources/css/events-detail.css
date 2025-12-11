@@ -1,0 +1,325 @@
+.hiking-header {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    color: white;
+    padding: 60px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hiking-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="mountains" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><polygon points="0,100 20,60 40,80 60,40 80,70 100,30 100,100" fill="%23ffffff" opacity="0.08"/></pattern></defs><rect width="100" height="100" fill="url(%23mountains)"/></svg>') repeat;
+}
+
+.hiking-header h1 {
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+}
+
+.hiking-header .lead {
+    position: relative;
+    z-index: 2;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.container-hiking {
+    background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+
+.hiking-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    background: white;
+}
+
+.hiking-card:hover {
+    transform: translateY(-5px);
+}
+
+.hiking-card img {
+    border-radius: 15px 15px 0 0;
+    height: 300px;
+    object-fit: cover;
+}
+
+.event-detail-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    border: 1px solid #e3f2e3;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.event-detail-section h2 {
+    color: #2d5a2d;
+    font-weight: 700;
+}
+
+.btn-hiking {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 20px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(103, 160, 103, 0.3);
+}
+
+.btn-hiking:hover {
+    background: linear-gradient(135deg, #5a8a5a 0%, #4d7d4d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 160, 103, 0.4);
+    color: white;
+}
+
+.btn-danger-hiking {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 20px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.btn-danger-hiking:hover {
+    background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    color: white;
+}
+
+.sidebar-card {
+    border: 1px solid #e3f2e3;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background: white;
+}
+
+.sidebar-card .card-header {
+    background: linear-gradient(135deg, #f8fdf8 0%, #edf7ed 100%);
+    border-bottom: 2px solid #d0e7d0;
+    font-weight: 600;
+    color: #2d5a2d;
+}
+
+.text-hiking {
+    color: #4a7a4a;
+}
+
+.search-btn {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.search-btn:hover {
+    background: linear-gradient(135deg, #5a8a5a 0%, #4d7d4d 100%);
+    color: white;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.small {
+    font-size: 0.875rem;
+}
+
+.event-info-box {
+    background: linear-gradient(135deg, #f8fdf8 0%, #edf7ed 100%);
+    border: 1px solid #d0e7d0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.event-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.event-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.event-info-icon {
+    color: #67a067;
+    width: 20px;
+    margin-right: 12px;
+}
+
+.event-type-badge {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.modal-content {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #f8fdf8 0%, #edf7ed 100%);
+    color: #2d5a2d;
+    border-radius: 20px 20px 0 0;
+    border-bottom: 2px solid #d0e7d0;
+}
+
+.modal-header .btn-close {
+    filter: none;
+    opacity: 0.7;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+.modal-body {
+    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #fafcfa 100%);
+}
+
+.modal-footer {
+    background: linear-gradient(135deg, #f8fdf8 0%, #edf7ed 100%);
+    border-radius: 0 0 20px 20px;
+    border-top: 1px solid #d0e7d0;
+    padding: 1.5rem 2rem;
+}
+
+.hiking-warning-icon {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.event-info-box-modal {
+    background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+    border: 2px solid #d0e7d0;
+    border-radius: 15px;
+    color: #2d5a2d;
+}
+
+.warning-message {
+    background: linear-gradient(135deg, #fff3cd 0%, #fef7e0 100%);
+    border: 1px solid #ffeaa7;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.warning-message p {
+    margin-bottom: 0.5rem;
+}
+
+.warning-message p:last-child {
+    margin-bottom: 0;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    border: none;
+    padding: 10px 25px;
+    font-weight: 600;
+    border-radius: 20px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.elevation-chart {
+    background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+    border: 1px solid #d0e7d0;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    margin-top: 15px;
+}
+
+.chart-bars {
+    display: flex;
+    align-items: flex-end; /* správna hodnota */
+    height: 200px;
+    gap: 3px;
+    padding: 10px 0;
+    border-bottom: 2px solid #d0e7d0;
+}
+
+.chart-bar {
+    background: linear-gradient(180deg, #67a067 0%, #5a8a5a 100%);
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    flex: 1;
+    min-height: 5px;
+    transition: all 0.3s ease;
+    border: 1px solid #4a7a4a;
+}
+
+.chart-bar:hover {
+    background: linear-gradient(180deg, #5a8a5a 0%, #4d7d4d 100%);
+    transform: scaleY(1.1);
+    border-color: #3a6a3a;
+}
+
+.chart-bar::after {
+    content: attr(data-value) 'm';
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #2d5a2d;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #d0e7d0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.chart-bar:hover::after {
+    opacity: 1;
+}
+
+.chart-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 600;
+}

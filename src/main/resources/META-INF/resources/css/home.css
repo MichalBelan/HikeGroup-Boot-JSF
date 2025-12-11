@@ -1,0 +1,286 @@
+:root {
+    --forest-green: #1a4d3a;
+    --sage-green: #7ba59b;
+    --mountain-blue: #a8c5c1;
+    --earth-brown: #8b4513;
+    --light-sage: #e8f1ef;
+    --cream: #f5f3f0;
+    --trail-brown: #d2b48c;
+}
+
+.hero {
+    position: relative;
+    min-height: 75vh;
+    background: linear-gradient(
+        rgba(26, 77, 58, 0.6),
+        rgba(123, 165, 155, 0.4)
+    ),
+    url('https://images.unsplash.com/photo-1549575810-c24b0d89c5b8?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    color: var(--cream);
+    max-width: 700px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero .btn-adventure {
+    background: linear-gradient(135deg, var(--earth-brown) 0%, #cd853f 100%);
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    transition: all 0.4s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.hero .btn-adventure:hover {
+    background: linear-gradient(135deg, #cd853f 0%, var(--earth-brown) 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(139, 69, 19, 0.6);
+    color: white;
+}
+
+.search-section {
+    background: linear-gradient(135deg, var(--light-sage) 0%, var(--cream) 100%);
+    padding: 3rem 0;
+    border-top: 4px solid var(--sage-green);
+    border-bottom: 4px solid var(--sage-green);
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 15px 40px rgba(26, 77, 58, 0.15);
+    border: 2px solid var(--mountain-blue);
+    position: relative;
+}
+
+.search-title {
+    text-align: center;
+    color: var(--forest-green);
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.search-subtitle {
+    text-align: center;
+    color: var(--sage-green);
+    margin-bottom: 2.5rem;
+    font-size: 1.2rem;
+}
+
+.search-input-group {
+    display: flex;
+    align-items: stretch;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(26, 77, 58, 0.15);
+    border: 3px solid var(--mountain-blue);
+    background: white;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    color: var(--sage-green);
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.search-input-field {
+    width: 100%;
+    border: none;
+    padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+    font-size: 1.1rem;
+    background-color: var(--cream);
+    color: var(--forest-green);
+    outline: none;
+    transition: all 0.3s ease;
+    border-radius: 25px 0 0 25px;
+}
+
+.search-input-field:focus {
+    background-color: white;
+    box-shadow: inset 0 0 0 2px var(--sage-green);
+}
+
+.search-input-field::placeholder {
+    color: var(--sage-green);
+    opacity: 0.8;
+}
+
+.search-btn-explore {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--sage-green) 100%);
+    border: none;
+    color: white;
+    padding: 1.2rem 2.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 0 25px 25px 0;
+    box-shadow: 0 4px 15px rgba(26, 77, 58, 0.3);
+}
+
+.search-btn-explore:hover {
+    background: linear-gradient(135deg, var(--sage-green) 0%, var(--forest-green) 100%);
+    transform: translateY(-2px);
+    color: white;
+    box-shadow: 0 6px 20px rgba(26, 77, 58, 0.4);
+}
+
+.search-btn-explore i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.mountain-decoration {
+    text-align: center;
+    margin: 0 0 2rem 0;
+    color: var(--sage-green);
+    font-size: 3rem;
+}
+
+/* Legacy input-group styles for backwards compatibility */
+.input-group {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(26, 77, 58, 0.1);
+}
+
+.input-group .form-control {
+    border: 3px solid var(--mountain-blue);
+    border-right: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    background-color: var(--cream);
+    transition: all 0.3s ease;
+}
+
+.input-group .form-control:focus {
+    border-color: var(--sage-green);
+    box-shadow: none;
+    background-color: white;
+}
+
+.input-group .btn {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--sage-green) 100%);
+    border: 3px solid var(--mountain-blue);
+    border-left: none;
+    color: white;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.input-group .btn:hover {
+    background: linear-gradient(135deg, var(--sage-green) 0%, var(--forest-green) 100%);
+    transform: translateY(-2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .search-container {
+        margin: 0 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .search-title {
+        font-size: 1.8rem;
+    }
+
+    .search-input-group {
+        flex-direction: column;
+        border-radius: 15px;
+    }
+
+    .search-input-field {
+        border-radius: 15px 15px 0 0;
+        padding: 1rem 1.2rem 1rem 3rem;
+    }
+
+    .search-btn-explore {
+        border-radius: 0 0 15px 15px;
+        padding: 1rem 2rem;
+        margin-top: 2px;
+    }
+
+    /* Legacy responsive styles */
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group .form-control,
+    .input-group .btn {
+        border-radius: 12px !important;
+        border: 3px solid var(--mountain-blue) !important;
+    }
+
+    .input-group .btn {
+        margin-top: 1rem;
+    }
+}

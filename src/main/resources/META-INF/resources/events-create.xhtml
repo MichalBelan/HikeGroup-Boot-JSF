@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="layout.xhtml">
+
+    <ui:define name="title">Create New Event</ui:define>
+
+    <ui:define name="content">
+        <h:outputStylesheet library="css" name="events-create.css"/>
+
+        <section class="py-5 container-hiking">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-10">
+                        <div class="hiking-form p-4">
+                            <div class="text-center mb-4">
+                                <h2 class="hiking-title mb-0">Create New Event</h2>
+                                <p class="text-muted mt-2">Plan your next hiking adventure</p>
+                            </div>
+
+                            <h:form>
+                                <h:inputHidden value="#{eventBean.clubId}" />
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">Name</label>
+                                        <h:inputText id="nameInput"
+                                                     value="#{eventBean.event.name}"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     requiredMessage="Name must not be empty"
+                                                     pt:placeholder="Enter event name..."/>
+                                        <h:message for="nameInput" styleClass="validation-message"/>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">Type</label>
+                                        <h:inputText id="typeInput"
+                                                     value="#{eventBean.event.type}"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     requiredMessage="Type must not be empty"
+                                                     pt:placeholder="e.g. Mountain Hike, Trail Walk..."/>
+                                        <h:message for="typeInput" styleClass="validation-message"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label">Photo URL</label>
+                                    <h:inputText id="photoInput"
+                                                 value="#{eventBean.event.photoUrl}"
+                                                 styleClass="form-control"
+                                                 required="true"
+                                                 requiredMessage="Photo URL must not be empty"
+                                                 pt:placeholder="https://example.com/event-photo.jpg"/>
+                                    <h:message for="photoInput" styleClass="validation-message"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">Start Time</label>
+                                        <h:inputText id="startInput"
+                                                     type="datetime-local"
+                                                     value="#{eventBean.formattedStartTime}"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     requiredMessage="Start time is required"/>
+                                        <h:message for="startInput" styleClass="validation-message"/>
+                                    </div>
+
+                                    <div class="col-md-6 mb-4">
+                                        <label class="form-label">End Time</label>
+                                        <h:inputText id="endInput"
+                                                     type="datetime-local"
+                                                     value="#{eventBean.formattedEndTime}"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     requiredMessage="End time is required"/>
+                                        <h:message for="endInput" styleClass="validation-message"/>
+                                    </div>
+                                </div>
+
+                                <div class="mb-5">
+                                    <label class="form-label">Elevation Profile</label>
+                                    <h:inputTextarea id="elevationInput"
+                                                     value="#{eventBean.event.elevationData}"
+                                                     styleClass="form-control"
+                                                     rows="3"
+                                                     pt:placeholder="100,150,280,420,380,350,200"/>
+                                    <small class="form-text text-muted mt-2">
+                                        Zadajte výšky oddelené čiarkami (napr. 100,150,280,420,380)
+                                    </small>
+                                </div>
+
+                                <div class="text-center">
+                                    <h:commandButton value="Create Event"
+                                                     action="#{eventBean.createEvent}"
+                                                     styleClass="btn btn-hiking btn-lg text-white px-5"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </ui:define>
+</ui:composition>
+</html>

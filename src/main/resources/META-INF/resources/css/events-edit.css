@@ -1,0 +1,97 @@
+.hiking-form {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border: 1px solid #d4e6d4;
+}
+.form-control {
+    border: 2px solid #c3d9c3;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    padding: 12px 16px;
+}
+.form-control:focus {
+    border-color: #67a067;
+    box-shadow: 0 0 0 0.2rem rgba(103, 160, 103, 0.25);
+}
+.btn-hiking {
+    background: linear-gradient(135deg, #67a067 0%, #5a8a5a 100%);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(103, 160, 103, 0.3);
+    color: white;
+}
+.btn-hiking:hover {
+    background: linear-gradient(135deg, #5a8a5a 0%, #4d7d4d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 160, 103, 0.4);
+    color: white;
+}
+.btn-cancel {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    color: white;
+}
+.btn-cancel:hover {
+    background: linear-gradient(135deg, #5a6268 0%, #494f54 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+    color: white;
+}
+.hiking-title {
+    color: #2d5a2d;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.form-label {
+    color: #3a6a3a;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.hiking-icon {
+    color: #67a067;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.error-message {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-top: 5px;
+}
+.container-hiking {
+    background: linear-gradient(135deg, #f8fdf8 0%, #ffffff 100%);
+    min-height: 100vh;
+    padding: 40px 0 80px 0;
+}
+.datetime-wrapper {
+    position: relative;
+}
+.datetime-wrapper .form-control {
+    padding-left: 45px;
+}
+.datetime-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #67a067;
+    font-size: 1.1rem;
+    z-index: 10;
+}
+.form-group {
+    margin-bottom: 1.5rem;
+}
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    color: #67a067;
+    filter: invert(37%) sepia(51%) saturate(316%) hue-rotate(75deg) brightness(95%) contrast(89%);
+}
