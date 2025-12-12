@@ -44,15 +44,22 @@ public class SecurityConfig {
                                 "/", "/home.xhtml",
                                 "/login.xhtml",
                                 "/register.xhtml", "/register/**",
+
+                                // JSF RESOURCES – TOTO JE TEN KRITICKÝ RIADOK
+                                "/jakarta.faces.resource/**",
+
+                                // statické časti ak používaš klasické resource folders
                                 "/css/**", "/js/**", "/images/**", "/webjars/**",
+
                                 "/error"
                         ).permitAll()
+
                         .anyRequest().authenticated()
                 )
 
                 .formLogin(form -> form
-                        .loginPage("/login.xhtml")          // JSF login page
-                        .loginProcessingUrl("/login")       // Spring Security spracuje POST
+                        .loginPage("/login.xhtml")
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/clubs-list.xhtml", true)
                         .failureUrl("/login.xhtml?error=true")
                         .permitAll()

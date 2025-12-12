@@ -5,6 +5,7 @@
     --earth-brown: #8b4513;
     --light-sage: #e8f1ef;
     --cream: #f5f3f0;
+    --error-red: #dc3545;
 }
 
 body {
@@ -54,35 +55,33 @@ h2 {
     font-size: 1rem;
     transition: all 0.3s ease;
     background-color: var(--cream);
+    width: 100%;
 }
 
 .form-control:focus {
     border-color: var(--sage-green);
     box-shadow: 0 0 0 0.2rem rgba(123, 165, 155, 0.25);
     background-color: white;
+    outline: none;
 }
 
-.form-control.is-invalid {
-    border-color: #dc3545;
-    background-color: #fff5f5;
+.was-validated .form-control:invalid,
+.form-control.is-invalid,
+.has-validation .form-control:invalid {
+    border-color: var(--error-red) !important;
+    background-color: #fff5f5 !important;
+    box-shadow: none !important;
 }
 
-.form-control.is-valid {
-    border-color: var(--forest-green);
-    background-color: var(--light-sage);
-}
-
-.invalid-feedback {
-    display: none;
-    width: 100%;
-    margin-top: 0.5rem;
+.ui-message-error,
+.invalid-feedback,
+.error-message {
+    color: var(--error-red) !important;
     font-size: 0.875em;
-    color: #dc3545;
     font-weight: 500;
-}
-
-.invalid-feedback.d-block {
-    display: block !important;
+    margin-top: 0.5rem;
+    display: block;
+    line-height: 1.2;
 }
 
 .btn-hiking {
@@ -96,6 +95,8 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 15px rgba(26, 77, 58, 0.3);
+    width: 100%;
+    font-size: 1rem;
 }
 
 .btn-hiking:hover {
@@ -105,27 +106,26 @@ h2 {
     color: white;
 }
 
-.info-icon {
-    color: var(--sage-green);
-    cursor: help;
-    margin-left: 0.5rem;
-    font-size: 0.9rem;
-}
-
 .mountain-icon {
     color: var(--sage-green);
     margin-right: 0.5rem;
 }
 
+.info-icon {
+    color: var(--sage-green);
+    margin-left: 0.5rem;
+    font-size: 1rem;
+}
+
 .text-center a {
-    color: var(--forest-green);
+    color: #1a4d3a !important;
     text-decoration: none;
     font-weight: 500;
 }
 
 .text-center a:hover {
-    color: var(--sage-green);
     text-decoration: underline;
+    color: #7ba59b !important;
 }
 
 .alert-success {
