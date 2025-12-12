@@ -83,7 +83,7 @@ public class ClubBean implements Serializable {
         if (searchParam != null) {
             searchQuery = searchParam;
             performSearchInternal();
-            return; // Don't load other data if this is search results
+            return;
         }
 
         // Set pagination
@@ -108,27 +108,6 @@ public class ClubBean implements Serializable {
         }
     }
 
-    // Navigation methods (converted from @GetMapping)
-    public String goToClubsList() {
-        loadClubs();
-        return "/clubs-list.xhtml?faces-redirect=true";
-    }
-
-    public String goToClubDetail(Long clubId) {
-        loadClubDetail(clubId);
-        return "/clubs-detail.xhtml?faces-redirect=true&clubId=" + clubId;
-    }
-
-    public String goToCreateClub() {
-        clubDto = new ClubDto();
-        return "/clubs-create.xhtml?faces-redirect=true";
-    }
-
-    public String goToEditClub(Long clubId) {
-        clubDto = clubService.findClubById(clubId);
-        return "/clubs-edit.xhtml?faces-redirect=true&clubId=" + clubId;
-    }
-
     // Action methods (converted from @PostMapping)
     public String saveClub() {
         try {
@@ -137,7 +116,7 @@ public class ClubBean implements Serializable {
             return "/clubs-list.xhtml?faces-redirect=true";
         } catch (Exception e) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Error creating club: " + e.getMessage());
-            return null; // Stay on current page
+            return null;
         }
     }
 
@@ -148,7 +127,7 @@ public class ClubBean implements Serializable {
             return "/clubs-detail.xhtml?faces-redirect=true&clubId=" + clubDto.getId();
         } catch (Exception e) {
             addMessage(FacesMessage.SEVERITY_ERROR, "Error updating club: " + e.getMessage());
-            return null; // Stay on current page
+            return null;
         }
     }
 
@@ -173,23 +152,6 @@ public class ClubBean implements Serializable {
             hasNext = false;
             hasPrevious = false;
         } else {
-            loadClubs();
-        }
-        return null; // Stay on current page
-    }
-
-    // Pagination methods
-    public String nextPage() {
-        if (hasNext) {
-            currentPage++;
-            loadClubs();
-        }
-        return null;
-    }
-
-    public String previousPage() {
-        if (hasPrevious) {
-            currentPage--;
             loadClubs();
         }
         return null;
@@ -273,7 +235,7 @@ public class ClubBean implements Serializable {
         }
     }
 
-    // Utility methods - OPRAVENÉ: len jedna metóda pre každý typ
+    // Utility methods
     public String formatDate(LocalDateTime dateTime) {
         if (dateTime == null) return "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -307,22 +269,6 @@ public class ClubBean implements Serializable {
     private void addMessage(FacesMessage.Severity severity, String summary) {
         FacesContext.getCurrentInstance().addMessage(null,
             new FacesMessage(severity, summary, null));
-    }
-
-    // Reset method for form cleanup
-    public void resetForm() {
-        clubDto = new ClubDto();
-        searchQuery = "";
-    }
-
-    // Validation methods
-    public boolean isOwner(ClubDto club) {
-        return user != null && club != null && club.getCreatedBy() != null &&
-               user.getId() != null && user.getId().equals(club.getCreatedBy().getId());
-    }
-
-    public boolean hasClubs() {
-        return clubs != null && !clubs.isEmpty();
     }
 
     public boolean hasEvents() {

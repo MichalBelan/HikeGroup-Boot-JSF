@@ -27,18 +27,6 @@ public class AuthBean {
 
     private String message;
 
-    // Navigation methods (converted from @GetMapping)
-    public String goToLogin() {
-        return "/login.xhtml?faces-redirect=true";
-    }
-
-    public String goToRegister() {
-        // Reset form for new registration
-        user = new RegistrationDto();
-        message = null;
-        return "/register.xhtml?faces-redirect=true";
-    }
-
     // JSF-based registration method (alternative to HTML form)
     public String register() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -49,7 +37,7 @@ public class AuthBean {
             context.addMessage("registerForm:email",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Email Error", "Email is already in use"));
-            return null; // Stay on page
+            return null;
         }
 
         // Validate username
@@ -58,7 +46,7 @@ public class AuthBean {
             context.addMessage("registerForm:username",
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Username Error", "Username is already taken"));
-            return null; // Stay on page
+            return null;
         }
 
         try {
@@ -81,67 +69,4 @@ public class AuthBean {
         }
     }
 
-    // Server-side validation for AJAX calls (optional)
-    public void validateEmail() {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (user.getEmail() != null && !user.getEmail().trim().isEmpty()) {
-            UserEntity existingEmail = userService.findByEmail(user.getEmail());
-            if (existingEmail != null) {
-                context.addMessage("registerForm:email",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Email Error", "Email is already in use"));
-            }
-        }
-    }
-
-    public void validateUsername() {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (user.getUsername() != null && !user.getUsername().trim().isEmpty()) {
-            UserEntity existingUsername = userService.findByUsername(user.getUsername());
-            if (existingUsername != null) {
-                context.addMessage("registerForm:username",
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Username Error", "Username is already taken"));
-            }
-        }
-    }
-
-    // Method to reset form
-    public void resetForm() {
-        user = new RegistrationDto();
-        message = null;
-    }
-
-    // Utility method to check if there are validation errors
-    public boolean hasErrors() {
-        return FacesContext.getCurrentInstance().getMessageList().stream()
-                .anyMatch(msg -> msg.getSeverity() == FacesMessage.SEVERITY_ERROR);
-    }
-
-    // Getters for URL parameters (for handling Spring Security redirects)
-    public boolean isSuccessParam() {
-        String success = FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .getRequestParameterMap()
-                .get("success");
-        return "true".equals(success);
-    }
-
-    public boolean isErrorParam() {
-        String error = FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .getRequestParameterMap()
-                .get("error");
-        return "true".equals(error);
-    }
-
-    public boolean isLogoutParam() {
-        String logout = FacesContext.getCurrentInstance()
-                .getExternalContext()
-                .getRequestParameterMap()
-                .get("logout");
-        return "true".equals(logout);
-    }
 }

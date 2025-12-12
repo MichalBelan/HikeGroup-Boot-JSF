@@ -38,7 +38,7 @@ public class Event {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @Column(columnDefinition = "TEXT")  // Už máš správne
+    @Column(columnDefinition = "TEXT")
     private String elevationData;
 
     @ManyToOne

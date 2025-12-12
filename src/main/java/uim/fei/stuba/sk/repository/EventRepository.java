@@ -15,5 +15,4 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Page<Event> findByClubId(Long clubId, Pageable pageable);
 
-    List<Event> findByClubId(Long clubId);
 }

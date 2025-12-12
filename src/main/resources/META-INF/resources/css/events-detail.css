@@ -270,7 +270,7 @@
 
 .chart-bars {
     display: flex;
-    align-items: flex-end; /* správna hodnota */
+    align-items: flex-end;
     height: 200px;
     gap: 3px;
     padding: 10px 0;

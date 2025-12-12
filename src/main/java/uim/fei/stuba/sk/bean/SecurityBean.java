@@ -34,16 +34,6 @@ public class SecurityBean implements Serializable {
         return SecurityUtil.getSessionUser();
     }
 
-    public UserEntity getCurrentUser() {
-        if (currentUser == null && isAuthenticated()) {
-            String username = getUsername();
-            if (username != null) {
-                currentUser = userService.findByUsername(username);
-            }
-        }
-        return currentUser;
-    }
-
     public void clearCurrentUser() {
         currentUser = null;
     }

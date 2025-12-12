@@ -99,23 +99,6 @@ public class EventBean implements Serializable {
         }
     }
 
-    // Navigation methods (converted from @GetMapping)
-    public String goToEventsList() {
-        currentPage = 0;
-        loadEvents();
-        return "/events-list.xhtml?faces-redirect=true";
-    }
-
-    public String goToEventDetail(Long eventId) {
-        return "/events-detail.xhtml?faces-redirect=true&eventId=" + eventId;
-    }
-
-    public String goToCreateEvent(Long clubId) {
-        this.clubId = clubId;
-        event = new EventDto();
-        return "/events-create.xhtml?faces-redirect=true&clubId=" + clubId;
-    }
-
     public String goToEditEvent(Long eventId) {
         return "/events-edit.xhtml?faces-redirect=true&eventId=" + eventId;
     }
@@ -228,22 +211,6 @@ public class EventBean implements Serializable {
         }
     }
 
-    // Pagination methods
-    public String nextPage() {
-        if (hasNext) {
-            currentPage++;
-            loadEvents();
-        }
-        return null;
-    }
-
-    public String previousPage() {
-        if (hasPrevious) {
-            currentPage--;
-            loadEvents();
-        }
-        return null;
-    }
 
     public String goToPage(int pageNumber) {
         if (pageNumber >= 0 && pageNumber < totalPages) {
@@ -265,20 +232,6 @@ public class EventBean implements Serializable {
         loadEvents();
         return null;
     }
-
-//    private void updateUrl() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        ExternalContext externalContext = context.getExternalContext();
-//        try {
-//            String url = "events-list.xhtml";
-//            if (currentPage > 0) {
-//                url += "?page=" + currentPage;
-//            }
-//            externalContext.redirect(url);
-//        } catch (Exception e) {
-//            System.err.println("Error updating URL: " + e.getMessage());
-//        }
-//    }
 
     // Data loading methods
     private void loadUser() {
@@ -354,13 +307,6 @@ public class EventBean implements Serializable {
         return dateTime.format(formatter);
     }
 
-    // Add this method to handle conversion issues
-    public String getFormattedCreatedOn(EventDto event) {
-        if (event == null || event.getCreatedOn() == null) return "";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        return event.getCreatedOn().format(formatter);
-    }
-
     public Double getElevationPercentage(Double elevation) {
         if (elevation == null || maxElevation == null || maxElevation == 0) {
             return 0.0;
@@ -385,14 +331,6 @@ public class EventBean implements Serializable {
             new FacesMessage(severity, summary, null));
     }
 
-    // Reset method for form cleanup
-    public void resetForm() {
-        event = new EventDto();
-        clubId = null;
-        maxElevation = null;
-        elevationList.clear();
-    }
-
     // Validation methods
     public boolean isOwner(EventDto eventDto) {
         return user != null && eventDto != null &&
@@ -408,15 +346,6 @@ public class EventBean implements Serializable {
     public boolean hasElevationData() {
         return elevationList != null && !elevationList.isEmpty() &&
                maxElevation != null && maxElevation > 0;
-    }
-
-    // Getters for JSF EL
-    public boolean isHasNext() {
-        return hasNext;
-    }
-
-    public boolean isHasPrevious() {
-        return hasPrevious;
     }
 
     // Pridaj do EventBean.java

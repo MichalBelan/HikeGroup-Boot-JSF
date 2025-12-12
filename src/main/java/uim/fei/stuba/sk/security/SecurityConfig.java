@@ -45,7 +45,7 @@ public class SecurityConfig {
                                 "/login.xhtml",
                                 "/register.xhtml", "/register/**",
 
-                                // JSF RESOURCES – TOTO JE TEN KRITICKÝ RIADOK
+                                // JSF RESOURCES
                                 "/jakarta.faces.resource/**",
 
                                 // statické časti ak používaš klasické resource folders
