@@ -2,7 +2,6 @@ package uim.fei.stuba.sk.bean;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
-import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -16,12 +15,10 @@ import uim.fei.stuba.sk.model.UserEntity;
 import uim.fei.stuba.sk.security.SecurityUtil;
 import uim.fei.stuba.sk.service.EventService;
 import uim.fei.stuba.sk.service.UserService;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +91,6 @@ public class EventBean implements Serializable {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Invalid event ID");
             }
         } else {
-            // Load events list for pagination
             loadEvents();
         }
     }

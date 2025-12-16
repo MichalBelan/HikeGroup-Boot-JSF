@@ -2,11 +2,8 @@ package uim.fei.stuba.sk.bean;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 

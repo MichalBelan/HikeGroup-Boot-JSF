@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import uim.fei.stuba.sk.model.UserEntity;
 import uim.fei.stuba.sk.security.SecurityUtil;
 import uim.fei.stuba.sk.service.UserService;
-
 import java.io.Serializable;
 
 @Named("securityBean")
@@ -42,16 +41,11 @@ public class SecurityBean implements Serializable {
         try {
             clearCurrentUser();
             SecurityContextHolder.clearContext();
-
-            // Invalidate JSF session
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             externalContext.invalidateSession();
-
-            // Redirect to login with logout parameter
             return "/login.xhtml?faces-redirect=true&logout=true";
 
         } catch (Exception e) {
-            // If redirect fails, try external redirect
             return "/login.xhtml?faces-redirect=true&logout=true";
         }
     }

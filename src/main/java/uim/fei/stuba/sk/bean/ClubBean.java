@@ -17,7 +17,6 @@ import uim.fei.stuba.sk.security.SecurityUtil;
 import uim.fei.stuba.sk.service.ClubService;
 import uim.fei.stuba.sk.service.EventService;
 import uim.fei.stuba.sk.service.UserService;
-
 import java.io.Serializable;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

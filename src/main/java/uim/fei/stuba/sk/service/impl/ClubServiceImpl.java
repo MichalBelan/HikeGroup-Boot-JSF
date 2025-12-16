@@ -13,10 +13,8 @@ import uim.fei.stuba.sk.repository.UserRepository;
 import uim.fei.stuba.sk.security.SecurityUtil;
 import uim.fei.stuba.sk.service.ClubService;
 import uim.fei.stuba.sk.service.EventService;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static uim.fei.stuba.sk.mapper.ClubMapper.mapToClub;
 import static uim.fei.stuba.sk.mapper.ClubMapper.mapToClubDto;
 

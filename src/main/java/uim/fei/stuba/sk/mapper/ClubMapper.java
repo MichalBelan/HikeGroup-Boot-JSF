@@ -2,9 +2,7 @@ package uim.fei.stuba.sk.mapper;
 
 import uim.fei.stuba.sk.dto.ClubDto;
 import uim.fei.stuba.sk.model.Club;
-
 import java.util.stream.Collectors;
-
 import static uim.fei.stuba.sk.mapper.EventMapper.mapToEventDto;
 
 public class ClubMapper {

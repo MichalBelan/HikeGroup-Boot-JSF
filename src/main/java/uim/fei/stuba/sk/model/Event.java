@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -20,16 +19,16 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 500)  // Zvýšený limit pre názov
+    @Column(length = 500)
     private String name;
 
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    @Column(length = 500)  // Zvýšený limit pre typ
+    @Column(length = 500)
     private String type;
 
-    @Column(length = 1000)  // Zvýšený limit pre URL
+    @Column(length = 1000)
     private String photoUrl;
 
     @CreationTimestamp

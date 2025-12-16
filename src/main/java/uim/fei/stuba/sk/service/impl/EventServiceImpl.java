@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import uim.fei.stuba.sk.dto.EventDto;
 import uim.fei.stuba.sk.mapper.EventMapper;
@@ -13,10 +12,8 @@ import uim.fei.stuba.sk.model.Event;
 import uim.fei.stuba.sk.repository.ClubRepository;
 import uim.fei.stuba.sk.repository.EventRepository;
 import uim.fei.stuba.sk.service.EventService;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static uim.fei.stuba.sk.mapper.EventMapper.mapToEvent;
 import static uim.fei.stuba.sk.mapper.EventMapper.mapToEventDto;
 

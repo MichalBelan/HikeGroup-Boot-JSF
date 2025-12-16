@@ -12,7 +12,6 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM Event e WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :query, '%')) OR LOWER(e.type) LIKE LOWER(CONCAT('%', :query, '%'))")
     List<Event> searchEvents(@Param("query") String query);
-
     Page<Event> findByClubId(Long clubId, Pageable pageable);
 
 }

@@ -3,7 +3,6 @@ package uim.fei.stuba.sk.service;
 import org.springframework.data.domain.Page;
 import uim.fei.stuba.sk.dto.ClubDto;
 import uim.fei.stuba.sk.model.Club;
-
 import java.util.List;
 
 public interface ClubService {

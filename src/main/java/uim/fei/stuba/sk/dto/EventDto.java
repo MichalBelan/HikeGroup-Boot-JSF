@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import uim.fei.stuba.sk.model.Club;
-
 import java.time.LocalDateTime;
 
 @Data

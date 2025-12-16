@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import uim.fei.stuba.sk.model.UserEntity;
 import uim.fei.stuba.sk.repository.UserRepository;
-
 import java.util.stream.Collectors;
 
 @Service
@@ -24,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByUsername(username); // Zmeňte na findByUsername
+        UserEntity user = userRepository.findByUsername(username);
         if (user != null) {
             User authUser = new User(
                     user.getUsername(),

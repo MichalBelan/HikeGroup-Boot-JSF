@@ -58,7 +58,6 @@ public class AuthBean {
                 new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Success", "Registration successful! You can now log in."));
 
-            // Redirect to login with success parameter
             return "/login.xhtml?faces-redirect=true&success=true";
 
         } catch (Exception e) {

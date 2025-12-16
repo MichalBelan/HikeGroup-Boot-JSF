@@ -9,7 +9,6 @@ import uim.fei.stuba.sk.model.UserEntity;
 import uim.fei.stuba.sk.repository.RoleRepository;
 import uim.fei.stuba.sk.repository.UserRepository;
 import uim.fei.stuba.sk.service.UserService;
-
 import java.util.Arrays;
 
 

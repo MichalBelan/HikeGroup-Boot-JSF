@@ -60,7 +60,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login.xhtml")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/clubs-list.xhtml", true)
+                        .defaultSuccessUrl("/home.xhtml", true)
                         .failureUrl("/login.xhtml?error=true")
                         .permitAll()
                 )
