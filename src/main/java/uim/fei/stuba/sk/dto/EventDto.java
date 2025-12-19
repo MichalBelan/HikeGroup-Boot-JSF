@@ -35,8 +35,6 @@ public class EventDto {
     private String photoUrl;
 
     private String elevationData;
-
-
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private Club club;

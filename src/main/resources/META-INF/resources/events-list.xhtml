@@ -35,7 +35,7 @@
                                                 <h:outputText value="#{eventBean.formatDate(event.createdOn)}"/>
                                             </div>
                                             <h3 class="event-title mb-3">
-                                                <h:link outcome="/events-detail.xhtml" styleClass="event-title stretched-link">
+                                                <h:link outcome="/events-detail.xhtml" styleClass="event-title">
                                                     <f:param name="eventId" value="#{event.id}"/>
                                                     <h:outputText value="#{event.name}"/>
                                                 </h:link>

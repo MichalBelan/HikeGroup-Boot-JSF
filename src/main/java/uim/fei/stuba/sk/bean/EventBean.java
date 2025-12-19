@@ -56,7 +56,7 @@ public class EventBean implements Serializable {
     public void init() {
         loadUser();
 
-        // Get parameters from URL
+
         Map<String, String> params = FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestParameterMap();
 
@@ -64,7 +64,6 @@ public class EventBean implements Serializable {
         String clubIdParam = params.get("clubId");
         String pageParam = params.get("page");
 
-        // Set pagination
         if (pageParam != null && !pageParam.isEmpty()) {
             try {
                 currentPage = Integer.parseInt(pageParam);
@@ -73,7 +72,6 @@ public class EventBean implements Serializable {
             }
         }
 
-        // Set club ID for event creation
         if (clubIdParam != null && !clubIdParam.isEmpty()) {
             try {
                 clubId = Long.parseLong(clubIdParam);
@@ -82,7 +80,6 @@ public class EventBean implements Serializable {
             }
         }
 
-        // Load specific event if eventId parameter exists
         if (eventIdParam != null && !eventIdParam.isEmpty()) {
             try {
                 Long eventId = Long.parseLong(eventIdParam);
@@ -107,7 +104,6 @@ public class EventBean implements Serializable {
                 return null;
             }
 
-            // Validate required fields
             if (event.getName() == null || event.getName().trim().isEmpty()) {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Event name is required");
                 return null;
@@ -150,7 +146,6 @@ public class EventBean implements Serializable {
                 return null;
             }
 
-            // Validate required fields
             if (event.getName() == null || event.getName().trim().isEmpty()) {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Event name is required");
                 return null;
@@ -175,8 +170,6 @@ public class EventBean implements Serializable {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Photo URL is required");
                 return null;
             }
-
-            // Get original event to preserve club information
             EventDto originalEvent = eventService.findByEventId(event.getId());
             event.setClub(originalEvent.getClub());
 
@@ -212,7 +205,6 @@ public class EventBean implements Serializable {
         if (pageNumber >= 0 && pageNumber < totalPages) {
             currentPage = pageNumber;
             loadEvents();
-//            updateUrl();
         }
         return null;
     }

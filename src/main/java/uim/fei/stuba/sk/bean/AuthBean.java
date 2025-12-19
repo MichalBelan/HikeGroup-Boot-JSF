@@ -27,7 +27,6 @@ public class AuthBean {
 
     private String message;
 
-    // JSF-based registration method (alternative to HTML form)
     public String register() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -40,7 +39,6 @@ public class AuthBean {
             return null;
         }
 
-        // Validate username
         UserEntity existingUsername = userService.findByUsername(user.getUsername());
         if (existingUsername != null) {
             context.addMessage("registerForm:username",
@@ -50,10 +48,8 @@ public class AuthBean {
         }
 
         try {
-            // Save user
             userService.saveUser(user);
 
-            // Success message
             context.addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "Success", "Registration successful! You can now log in."));
@@ -64,7 +60,7 @@ public class AuthBean {
             context.addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Error", "Registration failed. Please try again."));
-            return null; // Stay on page
+            return null;
         }
     }
 

@@ -17,6 +17,7 @@ import uim.fei.stuba.sk.security.SecurityUtil;
 import uim.fei.stuba.sk.service.ClubService;
 import uim.fei.stuba.sk.service.EventService;
 import uim.fei.stuba.sk.service.UserService;
+
 import java.io.Serializable;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +30,8 @@ import java.util.Map;
 @Named
 @Component
 @ViewScoped
-@Getter @Setter
+@Getter
+@Setter
 public class ClubBean implements Serializable {
 
     @Autowired
@@ -78,14 +80,12 @@ public class ClubBean implements Serializable {
         String pageParam = params.get("page");
         String searchParam = params.get("search");
 
-        // Handle search parameter for search-results page
         if (searchParam != null) {
             searchQuery = searchParam;
             performSearchInternal();
             return;
         }
 
-        // Set pagination
         if (pageParam != null && !pageParam.isEmpty()) {
             try {
                 currentPage = Integer.parseInt(pageParam);
@@ -97,8 +97,14 @@ public class ClubBean implements Serializable {
         if (clubIdParam != null && !clubIdParam.isEmpty()) {
             try {
                 Long clubId = Long.parseLong(clubIdParam);
-                loadClubDetail(clubId);
-                loadEventsForClub(clubId);
+                String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+
+                if (viewId.contains("clubs-detail")) {
+                    loadClubDetail(clubId);
+                    loadEventsForClub(clubId);
+                } else if (viewId.contains("clubs-edit")) {
+                    clubDto = clubService.findClubById(clubId);
+                }
             } catch (NumberFormatException e) {
                 addMessage(FacesMessage.SEVERITY_ERROR, "Invalid club ID");
             }
@@ -107,7 +113,6 @@ public class ClubBean implements Serializable {
         }
     }
 
-    // Action methods (converted from @PostMapping)
     public String saveClub() {
         try {
             clubService.saveClub(clubDto);
@@ -144,7 +149,6 @@ public class ClubBean implements Serializable {
     public String search() {
         if (searchQuery != null && !searchQuery.trim().isEmpty()) {
             clubs = clubService.searchClubs(searchQuery.trim());
-            // Reset pagination for search results
             currentPage = 0;
             totalPages = 1;
             totalItems = clubs.size();
@@ -267,18 +271,17 @@ public class ClubBean implements Serializable {
     // Helper method for adding faces messages
     private void addMessage(FacesMessage.Severity severity, String summary) {
         FacesContext.getCurrentInstance().addMessage(null,
-            new FacesMessage(severity, summary, null));
+                new FacesMessage(severity, summary, null));
     }
 
     public boolean hasEvents() {
         return events != null && !events.isEmpty();
     }
+
     public String performSearch() {
-        // Always redirect to search results, even with empty query
         String query = (searchQuery != null && !searchQuery.trim().isEmpty()) ? searchQuery.trim() : "";
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
 
-        // Perform search before redirect to populate data
         performSearchInternal();
 
         return "/search-results.xhtml?faces-redirect=true&search=" + encodedQuery;
@@ -295,7 +298,6 @@ public class ClubBean implements Serializable {
             System.out.println("Found " + clubs.size() + " clubs with query");
             System.out.println("Found " + searchEvents.size() + " events with query");
         } else {
-            // If no search query, show all clubs and events
             System.out.println("Empty search query, loading all clubs and events");
             clubs = clubService.findAllClubs();
             searchEvents = eventService.findAllEvents();
@@ -319,7 +321,6 @@ public class ClubBean implements Serializable {
         return searchEvents;
     }
 
-    // Event pagination method
     public String goToEventPage(int pageNumber) {
         if (pageNumber >= 0 && pageNumber < totalEventPages) {
             currentEventPage = pageNumber;
@@ -328,7 +329,6 @@ public class ClubBean implements Serializable {
         return null;
     }
 
-    // Get visible event page numbers
     public List<Integer> getVisibleEventPages() {
         List<Integer> pageNumbers = new ArrayList<>();
         int start = Math.max(0, currentEventPage - 2);

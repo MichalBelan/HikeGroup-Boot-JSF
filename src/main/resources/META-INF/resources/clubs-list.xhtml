@@ -62,7 +62,7 @@
 
                                             <h3 class="club-title mb-3">
                                                 <h:link outcome="/clubs-detail.xhtml"
-                                                        styleClass="club-title stretched-link">
+                                                        styleClass="club-title">
                                                     <f:param name="clubId" value="#{club.id}"/>
                                                     #{club.title}
                                                 </h:link>
@@ -80,8 +80,7 @@
                                                 </h:link>
 
                                                 <ui:fragment rendered="#{club.createdBy.id == clubBean.user.id}">
-                                                    <h:link outcome="/clubs-edit.xhtml"
-                                                            styleClass="btn btn-hiking-secondary btn-sm">
+                                                    <h:link outcome="/clubs-edit.xhtml" styleClass="btn btn-hiking-secondary btn-sm ms-2">
                                                         <f:param name="clubId" value="#{club.id}"/>
                                                         <i class="fas fa-edit me-1"></i>Edit
                                                     </h:link>
